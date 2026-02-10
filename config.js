@@ -3,87 +3,70 @@
 // ============================================
 
 const CONFIG = {
-    // Your Valentine's name that will appear in the title
-    // Example: "Jade", "Sarah", "Mike"
-    valentineName: "Jade",
+    // اسم أنوشي اللي هيظهر في العناوين
+    valentineName: "أنوشي ❤️",
 
-    // The title that appears in the browser tab
-    // You can use emojis! 💝 💖 💗 💓 💞 💕
-    pageTitle: "Will You Be My Valentine? 💝",
+    // عنوان الصفحة اللي بيظهر فوق في المتصفح
+    pageTitle: "مفاجأة لبطتي وقطتي 💍🌏",
 
-    // Floating emojis that appear in the background
-    // Find more emojis at: https://emojipedia.org
+    // القلوب اللي بتطير في الخلفية
     floatingEmojis: {
-        hearts: ['❤️', '💖', '💝', '💗', '💓'],  // Heart emojis
-        bears: ['🧸', '🐻']                       // Cute bear emojis
+        hearts: ['❤️', '💖', '💝', '💗', '💍'],  
+        bears: ['🧸', '😘', '🐱']                       
     },
 
-    // Questions and answers
-    // Customize each question and its possible responses
+    // الأسئلة والطلبات بالترتيب اللي إنت عايزه
     questions: {
         first: {
-            text: "Do you like me?",                                    // First interaction
-            yesBtn: "Yes",                                             // Text for "Yes" button
-            noBtn: "No",                                               // Text for "No" button
-            secretAnswer: "I don't like you, I love you! ❤️"           // Secret hover message
+            text: "بخخ 😂 خلتيني هكر بس تعالي نلعب يا بطتي و قطتي 🥺 ونسال شويه كدا ،😘👀",
+            yesBtn: "يلا بابا 🌏",
+            noBtn: "يلا يا نودي 💍",
+            secretAnswer: "بحبك يا غالية ❤️"
         },
         second: {
-            text: "How much do you love me?",                          // For the love meter
-            startText: "This much!",                                   // Text before the percentage
-            nextBtn: "Next ❤️"                                         // Text for the next button
+            text: "بتحبيني قد ايه ؟🤭",
+            startText: "بتحبيني بنسبة:",
+            nextBtn: "بوسي مهند 5 مرات و اكتبي 😘😘😘😘😘 هنا ❤️" 
         },
         third: {
-            text: "Will you be my Valentine on February 14th, 2025? 🌹", // The big question!
-            yesBtn: "Yes!",                                             // Text for "Yes" button
-            noBtn: "No"                                                 // Text for "No" button
+            text: "موافقه مهند يمسك ايدك وانتو قاعدين سوا يوم الاربع 🥺🥺",
+            yesBtn: "الصراحة اه ❤️",
+            noBtn: "مش دلوقتي" 
         }
     },
 
-    // Love meter messages
-    // They show up depending on how far they slide the meter
+    // رسائل عداد الحب
     loveMessages: {
-        extreme: "WOOOOW You love me that much?? 🥰🚀💝",  // Shows when they go past 5000%
-        high: "To infinity and beyond! 🚀💝",              // Shows when they go past 1000%
-        normal: "And beyond! 🥰"                           // Shows when they go past 100%
+        extreme: "قد الدنيا والاخر! 🥰🚀💝",
+        high: "بموت فيك يا مهند! 🚀💝",
+        normal: "بعشقك! 🥰"
     },
 
-    // Messages that appear after they say "Yes!"
+    // الرسالة النهائية الطويلة
     celebration: {
-        title: "Yay! I'm the luckiest person in the world! 🎉💝💖💝💓",
-        message: "Now come get your gift, a big warm hug and a huge kiss!",
-        emojis: "🎁💖🤗💝💋❤️💕"  // These will bounce around
+        title: "بموتتت فيكي يا ست البنات 🤤😘❤️💍🌏",
+        message: "بوصي بقا يا ست البنات انا انهارده اتولد من جديد اولا عشان بعد سنين كتير من كلام حلو ومواقف وكل حاجه حصلت كل ده كان من ورا موبيل حرفيا يعني صوت بس بردو كنت بحس بيكي من غير مبقا جمبك عشان عايزك تبقي حلالي حبيت بس اقولك اني بحبك اوووي وبموت فيكي اوووي و بعشاق اوووي يا ست البنات يا بنت الاصول يا ام اسيا يا غاليه ربنا يخليكي ليا وميحرمنيش منك ابداااا وربنا يخليكي و يحفظك ويحميكي ليا و يجمعني بيكي بلحلال و ربنا يقدرني واسعدك واجبلك دنيا تحت رجلكككك بموتتت فيكي",
+        emojis: "💍💖🤗💝💋❤️💕🌏"
     },
 
-    // Color scheme for the website
-    // Use https://colorhunt.co or https://coolors.co to find beautiful color combinations
+    // الألوان
     colors: {
-        backgroundStart: "#ffafbd",      // Gradient start (try pastel colors for a soft look)
-        backgroundEnd: "#ffc3a0",        // Gradient end (should complement backgroundStart)
-        buttonBackground: "#ff6b6b",     // Button color (should stand out against the background)
-        buttonHover: "#ff8787",          // Button hover color (slightly lighter than buttonBackground)
-        textColor: "#ff4757"             // Text color (make sure it's readable!)
+        backgroundStart: "#ffafbd",
+        backgroundEnd: "#ffc3a0",
+        buttonBackground: "#ff4d6d",
+        buttonHover: "#ff8787",
+        textColor: "#ff4757"
     },
 
-    // Animation settings
-    // Adjust these if you want faster/slower animations
-    animations: {
-        floatDuration: "15s",           // How long it takes hearts to float up (10-20s recommended)
-        floatDistance: "50px",          // How far hearts move sideways (30-70px recommended)
-        bounceSpeed: "0.5s",            // Speed of bouncing animations (0.3-0.7s recommended)
-        heartExplosionSize: 1.5         // Size of heart explosion effect (1.2-2.0 recommended)
-    },
-
-    // Background Music (Optional)
-    // Add your own music URL after getting proper licenses
+    // إعدادات الموسيقى برابط أغنيتك
     music: {
-        enabled: true,                     // Music feature is enabled
-        autoplay: true,                    // Try to autoplay (note: some browsers may block this)
-        musicUrl: "https://res.cloudinary.com/dncywqfpb/video/upload/v1738399057/music_qrhjvy.mp3", // Music streaming URL
-        startText: "🎵 Play Music",        // Button text to start music
-        stopText: "🔇 Stop Music",         // Button text to stop music
-        volume: 0.5                        // Volume level (0.0 to 1.0)
+        enabled: true,
+        autoplay: true,
+        musicUrl: "https://raw.githubusercontent.com/mohanedmuhamedxx999-cmyk/Enas-sayed-/main/music.mp3", 
+        startText: "🎵 شغلي الموسيقى يا بطتي",
+        stopText: "🔇 وقفي الموسيقى",
+        volume: 0.8
     }
 };
 
-// Don't modify anything below this line unless you know what you're doing
-window.VALENTINE_CONFIG = CONFIG; 
+window.VALENTINE_CONFIG = CONFIG;
