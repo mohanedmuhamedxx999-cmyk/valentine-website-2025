@@ -1,67 +1,121 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أميرتي ❤️</title>
+    <title>إلى قطتي ❤️</title>
     <style>
-        /* ستايل سريع وشيك */
         body {
-            background-color: #fce4ec; /* لون بينك هادي */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            /* هنا تحط رابط صورة الخلفية */
+            background-image: url('https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             margin: 0;
+            height: 100vh;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #mainContent {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
+            max-width: 450px;
+            width: 90%;
+            border: 2px solid #ff4d6d;
+            display: none; /* بيفتح بعد الباسورد */
+            z-index: 1000;
         }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 400px;
-            display: none; /* مخفي لحد ما ندخل الباسورد */
+
+        .heart {
+            position: fixed;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: moveHearts 4s linear forwards;
+            pointer-events: none;
+            z-index: 999;
         }
-        h1 { color: #d81b60; }
-        p { font-size: 1.2rem; color: #555; }
-        .heart { color: #e91e63; font-size: 50px; animation: pulse 1s infinite; }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+
+        @keyframes moveHearts {
+            0% { transform: translateY(100vh) scale(1); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
+
+        h1 { color: #ff4d6d; margin-bottom: 20px; }
+        p { font-size: 22px; font-weight: bold; color: #444; min-height: 60px; }
+
+        .btns { margin-top: 20px; }
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #eee; color: #333; position: relative; }
     </style>
 </head>
 <body>
 
-    <audio id="myAudio" loop>
-        <source src="song.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="container" id="mainContent">
-        <div class="heart">❤️</div>
-        <h1>كل سنة وأنتي معايا يا إيناس</h1>
+    <div id="mainContent">
+        <h1 id="questionText">يا قطتي ❤️</h1>
         <p id="typedText"></p>
-        <button onclick="playMusic()" style="background:#d81b60; color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">اضغطي هنا للأغنية 🎶</button>
+        
+        <div id="buttons" class="btns">
+            <button id="yesBtn" onclick="nextStep()">أيوة طبعاً</button>
+            <button id="noBtn" onmouseover="moveButton()">لأ</button>
+        </div>
+        
+        <audio id="myAudio" loop>
+            <source src="رابط_الأغنية_هنا.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
-<script>
-window.onload = function() {
-    let pass = prompt("ادخلي التاريخ المميز ❤️");
-    if (pass === "29/9") {
-        document.getElementById('mainContent').style.display = 'block';
-        typeWriter();
-    } else {
-        alert("التاريخ غلط يا ست الكل 😂");
-    }
-};
-        // كود كتابة النص تلقائياً
+    <script>
+        let step = 0;
         let i = 0;
-        let txt = 'انتي مش بس حبيبتي، انتي كل دنيتي.. وجودك جنبي هو أجمل هدية جاتلي في حياتي. ❤️';
+        let messages = [
+            "بتحبيني يا أنوشي؟ 🥺",
+            "طب قد إيه؟ ملوش آخر صح؟ 😉",
+            "يا روحي وأنا كمان بموت فيكي.. أنتي أحلى حاجة حصلتلي! ❤️"
+        ];
+
+        // كود الباسورد أول ما الصفحة تفتح
+        window.onload = function() {
+            let pass = prompt("ادخلي التاريخ المميز ❤️");
+            if (pass === "29/9") {
+                document.getElementById('mainContent').style.display = 'block';
+                setInterval(createHeart, 300); // القلوب تبدأ تطير
+                typeWriter();
+            } else {
+                alert("التاريخ غلط يا ست الكل 😂");
+                window.location.reload(); // يعيد التحميل لو غلط
+            }
+        };
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+
         function typeWriter() {
+            let txt = messages[step];
             if (i < txt.length) {
                 document.getElementById("typedText").innerHTML += txt.charAt(i);
                 i++;
@@ -69,8 +123,32 @@ window.onload = function() {
             }
         }
 
-        function playMusic() {
-            document.getElementById('myAudio').play();
+        function nextStep() {
+            // تشغيل الموسيقى مع أول ضغطة زرار
+            document.getElementById("myAudio").play();
+            
+            step++;
+            if (step < messages.length) {
+                document.getElementById("typedText").innerHTML = "";
+                i = 0;
+                if(step === 1) {
+                    document.getElementById("questionText").innerHTML = "يا واد يا واثق! 😉";
+                    document.getElementById("yesBtn").innerHTML = "ملوش آخر طبعاً";
+                }
+                if(step === 2) {
+                    document.getElementById("questionText").innerHTML = "بحبك يا أنوشي ❤️";
+                    document.getElementById("buttons").style.display = "none";
+                }
+                typeWriter();
+            }
+        }
+
+        function moveButton() {
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            document.getElementById("noBtn").style.position = "fixed";
+            document.getElementById("noBtn").style.left = x + "px";
+            document.getElementById("noBtn").style.top = y + "px";
         }
     </script>
 </body>
