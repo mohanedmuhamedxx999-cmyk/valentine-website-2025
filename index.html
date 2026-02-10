@@ -48,24 +48,16 @@
         <button onclick="playMusic()" style="background:#d81b60; color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">اضغطي هنا للأغنية 🎶</button>
     </div>
 
-    <script>
-        // كود الباسورد أول ما الصفحة تفتح
-        window.onload = function() {
-            let pass = prompt("ادخلي التاريخ المميز ❤️");
-        if (pass === "29/9") {
+<script>
+window.onload = function() {
+    let pass = prompt("ادخلي التاريخ المميز ❤️");
+    if (pass === "29/9") {
         document.getElementById('mainContent').style.display = 'block';
-typeWriter();
-            
-        
-            
-                document.getElementById('mainContent').style.display = 'block';
-                typeWriter();
-            } else {
-                alert("للأسف مش انتي المقصودة.. حاولي تاني");
-                window.location.reload();
-            }
-        }
-
+        typeWriter();
+    } else {
+        alert("التاريخ غلط يا ست الكل 😂");
+    }
+};
         // كود كتابة النص تلقائياً
         let i = 0;
         let txt = 'انتي مش بس حبيبتي، انتي كل دنيتي.. وجودك جنبي هو أجمل هدية جاتلي في حياتي. ❤️';
