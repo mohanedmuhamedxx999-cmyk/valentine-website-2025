@@ -18,7 +18,6 @@
             font-family: 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
         }
-
         #mainContent {
             background: rgba(255, 255, 255, 0.95);
             padding: 25px;
@@ -31,43 +30,12 @@
             border: 3px solid #ff4d6d;
             z-index: 1000;
         }
-
-        .heart {
-            position: fixed;
-            color: #ff4d6d;
-            animation: moveHearts 5s linear forwards;
-            z-index: 999;
-            pointer-events: none;
-        }
-
-        @keyframes moveHearts {
-            0% { transform: translateY(100vh); opacity: 1; }
-            100% { transform: translateY(-10vh); opacity: 0; }
-        }
-
-        button {
-            padding: 12px 20px;
-            margin: 10px;
-            border-radius: 25px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            font-size: 16px;
-        }
-
+        .heart { position: fixed; color: #ff4d6d; animation: moveHearts 5s linear forwards; z-index: 999; pointer-events: none; }
+        @keyframes moveHearts { 0% { transform: translateY(100vh); opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
+        button { padding: 12px 20px; margin: 10px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 16px; }
         #yesBtn { background: #ff4d6d; color: white; }
         #noBtn { background: #eee; color: #333; position: relative; }
-
-        input {
-            padding: 10px;
-            border-radius: 15px;
-            border: 2px solid #ff4d6d;
-            text-align: center;
-            width: 80%;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
+        input { padding: 10px; border-radius: 15px; border: 2px solid #ff4d6d; text-align: center; width: 80%; margin-bottom: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
@@ -87,7 +55,7 @@
     </div>
 
     <audio id="myAudio" loop>
-        <source src="https://github.com/mohanedmuhamedxx999-cmyk/music.git" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/mohanedmuhamedxx999-cmyk/Enas-sayed-/main/music.mp3" type="audio/mpeg">
     </audio>
 </div>
 
@@ -117,8 +85,7 @@
     }
 
     function nextStep() {
-        audio.play().catch(e => console.log("Audio play failed"));
-        
+        audio.play().catch(e => console.log("الصوت يعمل بعد التفاعل"));
         currentStep++;
         const qText = document.getElementById('qText');
         const btnContainer = document.getElementById('btnContainer');
@@ -141,30 +108,22 @@
 
     function checkAnswer() {
         const val = document.getElementById('answerInput').value;
-        if (val === "😘😘😘😘😘") {
-            nextStep();
-        } else {
-            alert("لازم 5 بوسات بالظبط وبنفس الشكل 😘");
-        }
+        if (val === "😘😘😘😘😘") { nextStep(); } 
+        else { alert("لازم 5 بوسات بالظبط وبنفس الشكل 😘"); }
     }
 
     function moveNoBtn() {
         const btn = document.getElementById('noBtn');
-        const x = Math.random() * (window.innerWidth - 150);
-        const y = Math.random() * (window.innerHeight - 100);
         btn.style.position = 'fixed';
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
+        btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+        btn.style.top = Math.random() * (window.innerHeight - 100) + 'px';
     }
 
     function finalStep() {
-        const main = document.getElementById('mainContent');
-        main.style.maxWidth = "600px";
-        document.getElementById('qTitle').innerHTML = "بموت فيكي 💍🌏";
         document.getElementById('btnContainer').style.display = 'none';
-        document.getElementById('qText').style.fontSize = "17px";
-        document.getElementById('qText').style.textAlign = "justify";
-        document.getElementById('qText').innerHTML = `بوصي بقا يا ست البنات انا انهارده اتولد من جديد اولا عشان بعد سنين كتير من كلام حلو ومواقف وكل حاجه حصلت كل ده كان من ورا موبيل حرفيا يعني صوت بس بردو كنت بحس بيكي من غير مبقا جمبك عشان عايزك تبقي حلالي حبيت بس اقولك اني بحبك اوووي وبموت فيكي اوووي و بعشاق اوووي يا ست البنات يا بنت الاصول يا ام اسيا يا غاليه ربنا يخليكي ليا وميحرمنيش منك ابداااا وربنا يخليكي و يحفظك ويحميكي ليا و يجمعني بيكي بلحلال و ربنا يقدرني واسعدك واجبلك دنيا تحت رجلكككك بموتتت فيكي 🤤😘❤️💍🌏 ❤️❤️❤️❤️`;
+        document.getElementById('qTitle').innerHTML = "بموت فيكي 💍🌏";
+        document.getElementById('qText').style.fontSize = "16px";
+        document.getElementById('qText').innerHTML = `بوصي بقا يا ست البنات انا انهارده اتولد من جديد اولا عشان بعد سنين كتير من كلام حلو ومواقف وكل حاجه حصلت كل ده كان من ورا موبيل حرفيا يعني صوت بس بردو كنت بحس بيكي من غير مبقا جمبك عشان عايزك تبقي حلالي حبيت بس اقولك اني بحبك اوووي وبموت فيكي اوووي و بعشاق اوووي يا ست البنات يا بنت الاصول يا ام اسيا يا غاليه ربنا يخليكي ليا وميحرمنيش منك ابداااا وربنا يخليكي و يحفظك ويحميكي ليا و يجمعني بيكي بلحلال و ربنا يقدرني واسعدك واجبلك دنيا تحت رجلكككك بموتتت فيكي 🤤😘❤️💍🌏`;
     }
 </script>
 </body>
