@@ -20,7 +20,7 @@
         }
         #mainContent {
             background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
             text-align: center;
             width: 85%;
@@ -41,42 +41,43 @@
             100% { transform: translateY(-10vh); opacity: 0; }
         }
         button {
-            padding: 10px 20px;
+            padding: 12px 20px;
             margin: 10px;
             border-radius: 20px;
             border: none;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
+            font-size: 16px;
         }
-        #yesBtn { background: #ff4d6d; color: white; }
-        #noBtn { background: #ddd; }
+        #yesBtn { background: #ff4d6d; color: white; width: 80%; }
+        #noBtn { background: #ddd; width: 80%; }
     </style>
 </head>
 <body>
 
 <div id="mainContent">
     <h2 id="qTitle">يا روح قلب بابا ❤️</h2>
-    <p id="qText">انوشييييي حبيت اقولك حاجه يا روح قلب بابا بس قبل مقول عايز اسال سوال انتي بتحبيني؟</p>
+    <p id="qText">جاهزة للمفاجأة يا أنوشي؟</p>
     <div id="btnContainer">
-        <button id="yesBtn" onclick="step2()">طبعاً</button>
-        <button id="noBtn" onclick="step2()">طبعاً</button>
+        <button id="yesBtn" onclick="nextStep()">أيوة جاهزة ❤️</button>
+        <button id="noBtn" style="display:none;"></button>
     </div>
 
-    <audio id="myAudio" loop>
+    <audio id="myAudio" loop preload="auto">
         <source src="https://raw.githubusercontent.com/mohanedmuhamedxx999-cmyk/Enas-sayed-/main/music.mp3" type="audio/mpeg">
     </audio>
 </div>
 
 <script>
+    let currentStep = 0;
+    const audio = document.getElementById("myAudio");
+
     window.onload = function() {
-        // التعديل الجديد في الباسورد هنا
         let pass = prompt("بوسي مهند ❤️"); 
         if (pass === "بوستو") {
             document.getElementById('mainContent').style.display = 'block';
             setInterval(createHeart, 400);
-            let audio = document.getElementById("myAudio");
-            audio.play().catch(e => console.log("الصوت محتاج تفاعل"));
         } else {
             alert("لازم تبوسيه الأول عشان تدخلي 😂❤️");
             window.location.reload();
@@ -93,29 +94,39 @@
         setTimeout(() => heart.remove(), 5000);
     }
 
-    function step2() {
-        document.getElementById("myAudio").play();
-        document.getElementById('qText').innerHTML = "فرحانه اني جيت نهارده؟ لان كل همي اني اشوف قلبك فرحان وبتضحكيلي اكن دنيا بتضحكلي";
-        let btn1 = document.getElementById('yesBtn');
-        let btn2 = document.getElementById('noBtn');
+    function nextStep() {
+        // تشغيل الأغنية مع أول ضغطة (حل مشكلة المتصفح)
+        audio.play().catch(e => console.log("Audio play failed"));
         
-        btn1.innerHTML = "طبعاً";
-        btn1.onclick = finalStep;
-        
-        btn2.innerHTML = "لا مش فرحانه";
-        btn2.onmouseover = function() {
-            this.innerHTML = "طبعاً طبعاً 😂❤️";
-            this.style.background = "#ff4d6d";
-            this.style.color = "white";
-        };
-        btn2.onclick = finalStep;
-    }
+        currentStep++;
+        const qTitle = document.getElementById('qTitle');
+        const qText = document.getElementById('qText');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
 
-    function finalStep() {
-        document.getElementById('btnContainer').style.display = 'none';
-        document.getElementById('qTitle').innerHTML = "بحبك أوووي ❤️";
-        document.getElementById('qText').style.fontSize = "18px";
-        document.getElementById('qText').innerHTML = "بوصي بقا يا ست البنات انا انهارده اتولد من جديد اولا عشان بعد سنين كتير من كلام حلو ومواقف وكل حاجه حصلت كل ده كان من ورا موبيل حرفيا يعني صوت بس بردو كنت بحس بيكي من غير مبقا جمبك عشان عايزك تبقي حلالي حبيت بس اقولك اني بحبك اوووي وبموت فيكي اوووي و بعشاق اوووي يا ست البنات يا بنت الاصول يا ام اسيا يا غاليه ربنا يخليكي ليا وميحرمنيش منك ابداااا وربنا يخليكي و يحفظك ويحميكي ليا و يجمعني بيكي بلحلال و ربنا يقدرني واسعدك واجبلك دنيا تحت رجلكككك بموتتت فيكي 🤤😘❤️💍🌏";
+        if (currentStep === 1) {
+            qText.innerHTML = "انوشييييي حبيت اقولك حاجه يا روح قلب بابا بس قبل مقول عايز اسال سوال انتي بتحبيني؟";
+            yesBtn.innerHTML = "طبعاً بحبك";
+        } 
+        else if (currentStep === 2) {
+            qText.innerHTML = "فرحانه اني جيت نهارده؟ لان كل همي اني اشوف قلبك فرحان وبتضحكيلي اكن دنيا بتضحكلي";
+            yesBtn.innerHTML = "طبعاً فرحانة";
+            noBtn.style.display = "inline-block";
+            noBtn.innerHTML = "لا مش فرحانه";
+            noBtn.onmouseover = function() {
+                this.innerHTML = "طبعاً طبعاً 😂❤️";
+                this.style.background = "#ff4d6d";
+                this.style.color = "white";
+            };
+            noBtn.onclick = nextStep;
+        } 
+        else if (currentStep === 3) {
+            document.getElementById('btnContainer').style.display = 'none';
+            qTitle.innerHTML = "بحبك أوووي ❤️";
+            qText.style.fontSize = "17px";
+            qText.style.lineHeight = "1.6";
+            qText.innerHTML = "بوصي بقا يا ست البنات انا انهارده اتولد من جديد اولا عشان بعد سنين كتير من كلام حلو ومواقف وكل حاجه حصلت كل ده كان من ورا موبيل حرفيا يعني صوت بس بردو كنت بحس بيكي من غير مبقا جمبك عشان عايزك تبقي حلالي حبيت بس اقولك اني بحبك اوووي وبموت فيكي اوووي و بعشاق اوووي يا ست البنات يا بنت الاصول يا ام اسيا يا غاليه ربنا يخليكي ليا وميحرمنيش منك ابداااا وربنا يخليكي و يحفظك ويحميكي ليا و يجمعني بيكي بلحلال و ربنا يقدرني واسعدك واجبلك دنيا تحت رجلكككك بموتتت فيكي 🤤😘❤️💍🌏";
+        }
     }
 </script>
 </body>
