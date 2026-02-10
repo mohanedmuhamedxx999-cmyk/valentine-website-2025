@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أميرتي ❤️</title>
+    <title>مفاجأة لبطتي ❤️</title>
     <style>
         body {
             background-image: url('https://i.ibb.co/wr2Rv7nM/image.jpg'); 
@@ -15,56 +15,78 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
         }
+
         #mainContent {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 25px;
-            border-radius: 20px;
+            border-radius: 25px;
             text-align: center;
             width: 85%;
             max-width: 500px;
             display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 2px solid #ff4d6d;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border: 3px solid #ff4d6d;
             z-index: 1000;
         }
+
         .heart {
             position: fixed;
             color: #ff4d6d;
             animation: moveHearts 5s linear forwards;
             z-index: 999;
+            pointer-events: none;
         }
+
         @keyframes moveHearts {
             0% { transform: translateY(100vh); opacity: 1; }
             100% { transform: translateY(-10vh); opacity: 0; }
         }
+
         button {
             padding: 12px 20px;
             margin: 10px;
-            border-radius: 20px;
+            border-radius: 25px;
             border: none;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
             font-size: 16px;
         }
-        #yesBtn { background: #ff4d6d; color: white; width: 80%; }
-        #noBtn { background: #ddd; width: 80%; }
+
+        #yesBtn { background: #ff4d6d; color: white; }
+        #noBtn { background: #eee; color: #333; position: relative; }
+
+        input {
+            padding: 10px;
+            border-radius: 15px;
+            border: 2px solid #ff4d6d;
+            text-align: center;
+            width: 80%;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
 
 <div id="mainContent">
-    <h2 id="qTitle">يا روح قلب بابا ❤️</h2>
-    <p id="qText">جاهزة للمفاجأة يا أنوشي؟</p>
+    <h2 id="qTitle">يا روح بابا 🌏</h2>
+    <div id="contentWrapper">
+        <p id="qText">بخخ 😂 خلتيني هكر بس تعالي نلعب يا بطتي و قطتي 🥺 ونسال شويه كدا ،😘👀</p>
+    </div>
+    <div id="inputArea" style="display:none;">
+        <p style="color:red; font-weight:bold;">بوسي مهند جامد وابعثي 5 بوسات (😘😘😘😘😘)</p>
+        <input type="text" id="answerInput" placeholder="حطي البوسات هنا...">
+    </div>
     <div id="btnContainer">
-        <button id="yesBtn" onclick="nextStep()">أيوة جاهزة ❤️</button>
-        <button id="noBtn" style="display:none;"></button>
+        <button id="btn1" onclick="nextStep()">يلا بابا 🌏</button>
+        <button id="btn2" onclick="nextStep()">يلا يا نودي 💍</button>
     </div>
 
-    <audio id="myAudio" loop preload="auto">
+    <audio id="myAudio" loop>
         <source src="https://raw.githubusercontent.com/mohanedmuhamedxx999-cmyk/Enas-sayed-/main/music.mp3" type="audio/mpeg">
     </audio>
 </div>
@@ -77,7 +99,7 @@
         let pass = prompt("بوسي مهند ❤️"); 
         if (pass === "بوستو") {
             document.getElementById('mainContent').style.display = 'block';
-            setInterval(createHeart, 400);
+            setInterval(createHeart, 350);
         } else {
             alert("لازم تبوسيه الأول عشان تدخلي 😂❤️");
             window.location.reload();
@@ -95,38 +117,54 @@
     }
 
     function nextStep() {
-        // تشغيل الأغنية مع أول ضغطة (حل مشكلة المتصفح)
         audio.play().catch(e => console.log("Audio play failed"));
         
         currentStep++;
-        const qTitle = document.getElementById('qTitle');
         const qText = document.getElementById('qText');
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
+        const btnContainer = document.getElementById('btnContainer');
+        const inputArea = document.getElementById('inputArea');
 
         if (currentStep === 1) {
-            qText.innerHTML = "انوشييييي حبيت اقولك حاجه يا روح قلب بابا بس قبل مقول عايز اسال سوال انتي بتحبيني؟";
-            yesBtn.innerHTML = "طبعاً بحبك";
-        } 
-        else if (currentStep === 2) {
-            qText.innerHTML = "فرحانه اني جيت نهارده؟ لان كل همي اني اشوف قلبك فرحان وبتضحكيلي اكن دنيا بتضحكلي";
-            yesBtn.innerHTML = "طبعاً فرحانة";
-            noBtn.style.display = "inline-block";
-            noBtn.innerHTML = "لا مش فرحانه";
-            noBtn.onmouseover = function() {
-                this.innerHTML = "طبعاً طبعاً 😂❤️";
-                this.style.background = "#ff4d6d";
-                this.style.color = "white";
-            };
-            noBtn.onclick = nextStep;
-        } 
-        else if (currentStep === 3) {
-            document.getElementById('btnContainer').style.display = 'none';
-            qTitle.innerHTML = "بحبك أوووي ❤️";
-            qText.style.fontSize = "17px";
-            qText.style.lineHeight = "1.6";
-            qText.innerHTML = "بوصي بقا يا ست البنات انا انهارده اتولد من جديد اولا عشان بعد سنين كتير من كلام حلو ومواقف وكل حاجه حصلت كل ده كان من ورا موبيل حرفيا يعني صوت بس بردو كنت بحس بيكي من غير مبقا جمبك عشان عايزك تبقي حلالي حبيت بس اقولك اني بحبك اوووي وبموت فيكي اوووي و بعشاق اوووي يا ست البنات يا بنت الاصول يا ام اسيا يا غاليه ربنا يخليكي ليا وميحرمنيش منك ابداااا وربنا يخليكي و يحفظك ويحميكي ليا و يجمعني بيكي بلحلال و ربنا يقدرني واسعدك واجبلك دنيا تحت رجلكككك بموتتت فيكي 🤤😘❤️💍🌏";
+            qText.innerHTML = "بتحبيني قد ايه ؟🤭";
+            btnContainer.innerHTML = '<button id="yesBtn" onclick="checkAnswer()">قد الدنيا والاخر</button>';
+            inputArea.style.display = 'block';
         }
+        else if (currentStep === 2) {
+            inputArea.style.display = 'none';
+            qText.innerHTML = "موافقه مهند يمسك ايدك وانتو قاعدين سوا يوم الاربع 🥺🥺";
+            btnContainer.innerHTML = `
+                <button id="yesBtn" onclick="finalStep()">الصراحة اه</button>
+                <button id="noBtn" onmouseover="moveNoBtn()">مش دلوقتي</button>
+            `;
+        }
+    }
+
+    function checkAnswer() {
+        const val = document.getElementById('answerInput').value;
+        if (val === "😘😘😘😘😘") {
+            nextStep();
+        } else {
+            alert("لازم 5 بوسات بالظبط وبنفس الشكل 😘");
+        }
+    }
+
+    function moveNoBtn() {
+        const btn = document.getElementById('noBtn');
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 100);
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+
+    function finalStep() {
+        const main = document.getElementById('mainContent');
+        main.style.maxWidth = "600px";
+        document.getElementById('qTitle').innerHTML = "بموت فيكي 💍🌏";
+        document.getElementById('btnContainer').style.display = 'none';
+        document.getElementById('qText').style.fontSize = "17px";
+        document.getElementById('qText').style.textAlign = "justify";
+        document.getElementById('qText').innerHTML = `بوصي بقا يا ست البنات انا انهارده اتولد من جديد اولا عشان بعد سنين كتير من كلام حلو ومواقف وكل حاجه حصلت كل ده كان من ورا موبيل حرفيا يعني صوت بس بردو كنت بحس بيكي من غير مبقا جمبك عشان عايزك تبقي حلالي حبيت بس اقولك اني بحبك اوووي وبموت فيكي اوووي و بعشاق اوووي يا ست البنات يا بنت الاصول يا ام اسيا يا غاليه ربنا يخليكي ليا وميحرمنيش منك ابداااا وربنا يخليكي و يحفظك ويحميكي ليا و يجمعني بيكي بلحلال و ربنا يقدرني واسعدك واجبلك دنيا تحت رجلكككك بموتتت فيكي 🤤😘❤️💍🌏 ❤️❤️❤️❤️`;
     }
 </script>
 </body>
