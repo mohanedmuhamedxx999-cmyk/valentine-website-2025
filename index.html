@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -7,8 +6,8 @@
     <title>إلى قطتي ❤️</title>
     <style>
         body {
-            /* هنا تحط رابط صورة الخلفية */
-            background-image: url('https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?q=80&w=2070&auto=format&fit=crop'); 
+            /* رابط الصورة المتصلح */
+            background-image: url('https://i.ibb.co/wr2Rv7nM/image.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -30,7 +29,7 @@
             max-width: 450px;
             width: 90%;
             border: 2px solid #ff4d6d;
-            display: none; /* بيفتح بعد الباسورد */
+            display: none;
             z-index: 1000;
         }
 
@@ -48,10 +47,9 @@
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        h1 { color: #ff4d6d; margin-bottom: 20px; }
+        h1 { color: #ff4d6d; }
         p { font-size: 22px; font-weight: bold; color: #444; min-height: 60px; }
 
-        .btns { margin-top: 20px; }
         button {
             padding: 12px 25px;
             font-size: 18px;
@@ -72,13 +70,13 @@
         <h1 id="questionText">يا قطتي ❤️</h1>
         <p id="typedText"></p>
         
-        <div id="buttons" class="btns">
+        <div id="buttons">
             <button id="yesBtn" onclick="nextStep()">أيوة طبعاً</button>
             <button id="noBtn" onmouseover="moveButton()">لأ</button>
         </div>
         
         <audio id="myAudio" loop>
-            <source src="رابط_الأغنية_هنا.mp3" type="audio/mpeg">
+            <source src="https://raw.githubusercontent.com/mohanedmuhamedxx999-cmyk/Enas-sayed-/main/music.mp3" type="audio/mpeg">
         </audio>
     </div>
 
@@ -91,16 +89,15 @@
             "يا روحي وأنا كمان بموت فيكي.. أنتي أحلى حاجة حصلتلي! ❤️"
         ];
 
-        // كود الباسورد أول ما الصفحة تفتح
         window.onload = function() {
             let pass = prompt("ادخلي التاريخ المميز ❤️");
             if (pass === "29/9") {
                 document.getElementById('mainContent').style.display = 'block';
-                setInterval(createHeart, 300); // القلوب تبدأ تطير
+                setInterval(createHeart, 300);
                 typeWriter();
             } else {
                 alert("التاريخ غلط يا ست الكل 😂");
-                window.location.reload(); // يعيد التحميل لو غلط
+                window.location.reload();
             }
         };
 
@@ -124,8 +121,8 @@
         }
 
         function nextStep() {
-            // تشغيل الموسيقى مع أول ضغطة زرار
-            document.getElementById("myAudio").play();
+            // تشغيل الأغنية
+            document.getElementById("myAudio").play().catch(e => console.log("Audio play failed"));
             
             step++;
             if (step < messages.length) {
