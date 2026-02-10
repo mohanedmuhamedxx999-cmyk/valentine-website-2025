@@ -1,77 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CUSTOMIZE: Browser tab title -->
-    <title>Will You Be My Valentine? 💝</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <title>إلى أميرتي ❤️</title>
+    <style>
+        /* ستايل سريع وشيك */
+        body {
+            background-color: #fce4ec; /* لون بينك هادي */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            display: none; /* مخفي لحد ما ندخل الباسورد */
+        }
+        h1 { color: #d81b60; }
+        p { font-size: 1.2rem; color: #555; }
+        .heart { color: #e91e63; font-size: 50px; animation: pulse 1s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-    <!-- Floating Background Elements -->
-    <div class="floating-elements">
-        <!-- Hearts and bears will be added here by JavaScript -->
+
+    <audio id="myAudio" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container" id="mainContent">
+        <div class="heart">❤️</div>
+        <h1>كل سنة وأنتي معايا يا إيناس</h1>
+        <p id="typedText"></p>
+        <button onclick="playMusic()" style="background:#d81b60; color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">اضغطي هنا للأغنية 🎶</button>
     </div>
 
-    <!-- Main Content Container -->
-    <div class="container">
-        <h1 id="valentineTitle"></h1>
-        
-        <!-- Music Player -->
-        <div id="musicControls" class="music-controls">
-            <button id="musicToggle" class="music-btn">🎵 Play Music</button>
-            <audio id="bgMusic" loop>
-                <source id="musicSource" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
+    <script>
+        // كود الباسورد أول ما الصفحة تفتح
+        window.onload = function() {
+            let pass = prompt("ادخلي كلمة السر (29/9):");
+            if (pass === "بحبك") { // غير "بحبك" للباسورد اللي تعجبك
+                document.getElementById('mainContent').style.display = 'block';
+                typeWriter();
+            } else {
+                alert("للأسف مش انتي المقصودة.. حاولي تاني");
+                window.location.reload();
+            }
+        }
 
-        <!-- First Question -->
-        <div class="question-section" id="question1">
-            <h2 id="question1Text"></h2>
-            <button class="cute-btn" onclick="moveButton(this)" id="yesBtn1"></button>
-            <button class="cute-btn" onclick="moveButton(this)" id="noBtn1"></button>
-            <!-- CUSTOMIZE: Secret answer text -->
-            <div class="secret-answer">
-                <button class="cute-btn special" onclick="showNextQuestion(2)" id="secretAnswerBtn"></button>
-            </div>
-        </div>
+        // كود كتابة النص تلقائياً
+        let i = 0;
+        let txt = 'انتي مش بس حبيبتي، انتي كل دنيتي.. وجودك جنبي هو أجمل هدية جاتلي في حياتي. ❤️';
+        function typeWriter() {
+            if (i < txt.length) {
+                document.getElementById("typedText").innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
 
-        <!-- Second Question (Love Meter) -->
-        <div class="question-section hidden" id="question2">
-            <h2 id="question2Text"></h2>
-            <!-- Love meter settings: min="0" max="10000" -->
-            <div class="love-meter">
-                <input type="range" min="0" max="10000" value="100" class="slider" id="loveMeter">
-                <p>
-                    <span class="love-value-container"><span id="startText"></span> (<span id="loveValue">100</span>%)</span>
-                    <span id="extraLove" class="hidden"></span>
-                </p>
-            </div>
-            <button class="cute-btn" onclick="showNextQuestion(3)" id="nextBtn"></button>
-        </div>
-
-        <!-- Final Question -->
-        <div class="question-section hidden" id="question3">
-            <h2 id="question3Text"></h2>
-            <button class="cute-btn final-yes" onclick="celebrate()" id="yesBtn3"></button>
-            <button class="cute-btn" onclick="moveButton(this)" id="noBtn3"></button>
-        </div>
-
-        <!-- CUSTOMIZE: Celebration message -->
-        <div class="celebration hidden" id="celebration">
-            <h2 id="celebrationTitle"></h2>
-            <p class="celebration-text" id="celebrationMessage"></p>
-            <p class="celebration-text" id="celebrationEmojis"></p>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="theme.js"></script>
-    <script src="script.js"></script>
+        function playMusic() {
+            document.getElementById('myAudio').play();
+        }
+    </script>
 </body>
-</html> 
+</html>
