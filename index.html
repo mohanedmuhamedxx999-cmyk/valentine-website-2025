@@ -1,77 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CUSTOMIZE: Browser tab title -->
-    <title>Will You Be My Valentine? 💝</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <title>إلى أغلى إنسانة</title>
+    <style>
+        body {
+            background-color: #ffebf0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+            margin: 0;
+        }
+        /* بوابة الباسورد */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #ff4d6d;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 1000; color: white;
+        }
+        input {
+            padding: 10px; border-radius: 20px; border: none;
+            margin-top: 10px; text-align: center; outline: none;
+        }
+        button {
+            background: white; color: #ff4d6d; border: none;
+            padding: 10px 20px; border-radius: 20px; margin-top: 10px;
+            cursor: pointer; font-weight: bold;
+        }
+        /* المحتوى الرئيسي */
+        #main-content { display: none; padding: 50px 20px; }
+        h1 { color: #ff4d6d; font-size: 2.5rem; }
+        .message {
+            background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 500px; margin: 20px auto; line-height: 1.8;
+        }
+        .heart {
+            position: fixed; font-size: 20px; color: #ff4d6d;
+            animation: moveUp 4s linear infinite; opacity: 0;
+        }
+        @keyframes moveUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Floating Background Elements -->
-    <div class="floating-elements">
-        <!-- Hearts and bears will be added here by JavaScript -->
+
+    <div id="login-screen">
+        <h2>اكتب كلمة السر عشان تدخل ❤️</h2>
+        <input type="password" id="passInput" placeholder="اكتب الكلمة هنا...">
+        <button onclick="checkPass()">دخول</button>
+        <p id="error" style="display:none; margin-top:10px;">لا ركز كدة.. جرب تاني! 😉</p>
     </div>
 
-    <!-- Main Content Container -->
-    <div class="container">
-        <h1 id="valentineTitle"></h1>
+    <div id="main-content">
+        <h1>كل سنة وأنتي منورة دنيتي يا ست البنات ❤️</h1>
+        <div class="message">
+            يا أجمل صدفة حصلت في حياتي، حبيت أعملك حاجة بسيطة تعبر عن اللي جوايا.. انتي مش بس حبيبتي، انتي الأمان والضحكة اللي بتفرح قلبي.
+        </div>
+        <div class="message">
+            كل يوم بيعدي وأنا معاكي بتأكد إنك أجمل هدية ربنا بعتها لي. ربنا يخليكي ليا وما يحرمنيش من وجودك أبداً.
+        </div>
         
-        <!-- Music Player -->
-        <div id="musicControls" class="music-controls">
-            <button id="musicToggle" class="music-btn">🎵 Play Music</button>
-            <audio id="bgMusic" loop>
-                <source id="musicSource" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-
-        <!-- First Question -->
-        <div class="question-section" id="question1">
-            <h2 id="question1Text"></h2>
-            <button class="cute-btn" onclick="moveButton(this)" id="yesBtn1"></button>
-            <button class="cute-btn" onclick="moveButton(this)" id="noBtn1"></button>
-            <!-- CUSTOMIZE: Secret answer text -->
-            <div class="secret-answer">
-                <button class="cute-btn special" onclick="showNextQuestion(2)" id="secretAnswerBtn"></button>
-            </div>
-        </div>
-
-        <!-- Second Question (Love Meter) -->
-        <div class="question-section hidden" id="question2">
-            <h2 id="question2Text"></h2>
-            <!-- Love meter settings: min="0" max="10000" -->
-            <div class="love-meter">
-                <input type="range" min="0" max="10000" value="100" class="slider" id="loveMeter">
-                <p>
-                    <span class="love-value-container"><span id="startText"></span> (<span id="loveValue">100</span>%)</span>
-                    <span id="extraLove" class="hidden"></span>
-                </p>
-            </div>
-            <button class="cute-btn" onclick="showNextQuestion(3)" id="nextBtn"></button>
-        </div>
-
-        <!-- Final Question -->
-        <div class="question-section hidden" id="question3">
-            <h2 id="question3Text"></h2>
-            <button class="cute-btn final-yes" onclick="celebrate()" id="yesBtn3"></button>
-            <button class="cute-btn" onclick="moveButton(this)" id="noBtn3"></button>
-        </div>
-
-        <!-- CUSTOMIZE: Celebration message -->
-        <div class="celebration hidden" id="celebration">
-            <h2 id="celebrationTitle"></h2>
-            <p class="celebration-text" id="celebrationMessage"></p>
-            <p class="celebration-text" id="celebrationEmojis"></p>
-        </div>
+        <h2 style="color: #ff4d6d;">- حبيبك مهند</h2>
+        
+        <p>الموسيقى شغالة.. اسمعي بقلبك 🎵</p>
     </div>
 
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="theme.js"></script>
-    <script src="script.js"></script>
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            // الباسورد اللي أنت طلبته
+            if (pass === "بحبك يا مهند") {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('bgMusic').play();
+                startHearts();
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        }
+    </script>
 </body>
-</html> 
+</html>
