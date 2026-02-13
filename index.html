@@ -16,18 +16,17 @@
         .active { display: flex !important; animation: fadeIn 0.8s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ستايل اللعبة */
         .game-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; max-width: 400px; }
-        .card { width: 140px; height: 100px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; transition: 0.5s; position: relative; overflow: hidden; }
+        .card { width: 140px; height: 100px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; transition: 0.5s; position: relative; padding: 5px; }
         .card.flipped { background: #fff; color: var(--dark-red); transform: rotateY(360deg); font-weight: bold; }
 
-        .envelope { width: 200px; height: 120px; background: var(--dark-red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 20px auto; animation: pulse 2s infinite; }
+        .envelope { width: 220px; height: 140px; background: var(--dark-red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 20px auto; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-top: 70px solid #a50029; border-left: 100px solid transparent; border-right: 100px solid transparent; }
+        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-top: 80px solid #a50029; border-left: 110px solid transparent; border-right: 110px solid transparent; }
 
-        button, input { padding: 15px 30px; margin: 10px; border-radius: 30px; border: 2px solid var(--gold); background: rgba(255,255,255,0.1); color: #fff; font-family: 'Reem Kufi'; cursor: pointer; }
+        button, input { padding: 15px 30px; margin: 10px; border-radius: 30px; border: 2px solid var(--gold); background: rgba(255,255,255,0.1); color: #fff; font-family: 'Reem Kufi'; cursor: pointer; outline: none; }
         
-        .final-letter { background: rgba(255, 255, 255, 0.95); color: #333; padding: 30px; border-radius: 20px; max-width: 600px; width: 90%; max-height: 70vh; overflow-y: auto; font-family: 'Amiri', serif; line-height: 1.8; border: 4px solid var(--gold); text-align: right; }
+        .final-letter { background: rgba(255, 255, 255, 0.95); color: #333; padding: 30px; border-radius: 20px; max-width: 600px; width: 90%; max-height: 75vh; overflow-y: auto; font-family: 'Amiri', serif; line-height: 2; border: 4px solid var(--gold); text-align: right; box-shadow: 0 0 30px rgba(212,175,55,0.5); }
         .particle { position: fixed; pointer-events: none; z-index: 1000; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
     </style>
@@ -38,8 +37,9 @@
     <div class="background-overlay"><div class="bg-glow"></div></div>
 
     <div id="step1" class="screen active">
-        <h1 style="color: var(--pink);">يا روح نودي.. 🌎</h1>
-        <div class="envelope" onclick="startApp()"><div style="position:absolute; top:40px; left:85px; font-size:30px;">❤️</div></div>
+        <h1 style="color: var(--pink); text-shadow: 0 0 15px var(--red);">يا روح نودي.. 🌎</h1>
+        <div class="envelope" onclick="startApp()"><div style="position:absolute; top:50px; left:95px; font-size:30px;">❤️</div></div>
+        <p>اضغطي على القلب عشان تفتحي الرسالة</p>
     </div>
 
     <div id="stepLogin" class="screen">
@@ -51,11 +51,10 @@
 
     <div id="stepGame" class="screen">
         <h2 style="color: var(--gold);">لعبة القلوب: تفتكري مهند بيحب فيكي إيه؟ ✨</h2>
-        <p>اضغطي على القلوب عشان تعرفي..</p>
         <div class="game-container">
-            <div class="card" onclick="flip(this, 'حنـيتك اللي مفيش زيها')">❤️</div>
+            <div class="card" onclick="flip(this, 'حنيتك اللي مفيش زيها')">❤️</div>
             <div class="card" onclick="flip(this, 'روحك الصافية الملايكة')">❤️</div>
-            <div class="card" onclick="flip(this, 'ضحكتك اللي بتنور دنيتي')">❤️</div>
+            <div class="card" onclick="flip(this, 'ضحكتك اللي بتدوب قلبي')">❤️</div>
             <div class="card" onclick="flip(this, 'أصلك الطيب يا ست البنات')">❤️</div>
         </div>
         <button id="giftBtn" style="display:none; margin-top:30px; background: var(--dark-red);" onclick="nextStep('stepFinal')">دلوقتي افتحي هديتك الكبيرة 🎁</button>
@@ -63,17 +62,24 @@
 
     <div id="stepFinal" class="screen">
         <div class="final-letter">
-            <p>بصي بقى يا إيناس.. [هنا حطيت نص كلامك اللي كتبتهولي كله...]</p>
-            <p>أنا أعرفك اه بقالي 9 سنين بس كان فيهم حلو ووحش.. (باقي كلامك)...</p>
-            <p style="text-align: center; color: var(--dark-red); font-weight: bold;">اللهم إني استودعتك إيناس سيد فاحفظها بحفظك.. آمين</p>
-            <div style="text-align: center; font-size: 1.5rem; margin-top: 20px;">بحبكككك وبعشقك يا دنيتي ❤️🌏💍<br>مهند ✍️</div>
+            <p>بصي بقى يا إيناس.. أنا عايز أقول كل اللي جوايا بجد.. أنا أعرفك اه بقالي ٩ سنين بس كان فيهم حلو ووحش وعرفتيني و بعدنا حبه واتكلمنا تاني بس قسما بالله انا لو اعدت ٩٠ سنه معاكي مهشبع منك تمام 🙏🏼🌎.</p>
+            <p>انا عارف زمان كنت اه بكذب في حجات كتير وانتي استحملتيني يا اصيله يا ست البنات بس قسما بالله الي رفع السما بلا عمد انا حبيتك من زمان وحبي زاد واهتميت اكتر دلوقتي لكن فكرة الحب حاليا بقت عشق الي هو عايزك يعني عايزك وطبعا في حلال ❤️🌏💍.</p>
+            <p>عايز عشان انتي مفيش زيك تاني كطييه و حنينه و روحك صافيه وقلبك ابيض ساعات اقول انتي مش بشر قسما بالله مش اوفر بس والله ساعات اقول دي بتغلط زينا عادي!🙂❤️🌏 عقلي يقول للدرجادي يامجنون وحضرتك من نحيه التانيه تقوليلي انا عادية بس وحيات ربنا وغلاوتك انتي وامي واختي عندي انا حرفيا شايفك ملاك 🫂.</p>
+            <p>وبنسبه انتي بتقولي انت هتعمل كل قولته وحنيه وطيبة دي في جواز قسما بالله انا هعمل اكتر من كدا لحد متدوخي من الدلع الي هدلعهولك والايام تثبت وربنا شاهد علي ما اقول 🙏🏼❤️❤️.</p>
+            <p>انا والله ماليش غيرك في دنيتي دلوقتي غيرك انتي حببتي و صحبتي و امي وبنتي و روحي وعقلي و نبضي و الهوا الي بتنفسه🥺🌏. سالت نفسي ساعات لما بتقفلي مفيش ثانيه عدت واقول لا اتصل انا مشبعتش من صوتك وضحتك الي تخلي القلب يسيح في مكانه 🤤🥹.</p>
+            <p>انتي كاملة الاوصاف من جوه ملايكه ومن بره قمرين امي دعيالي فعلا وربنا بعتالي ااغله هديه ليا 😭❤️🌏. يبقا غبي لو محافظتش عليكي ، ربنا يخليكي ويحميكي ليا يا ست البنات و يحلالي باذن الله 🥺❤️.</p>
+            <p>امبارح بعد مستخرت ربنا فيكي ، سالت تفسي انا عايز ايه من الدنيا لو ربنا جمعني بيكي ملقتش حاجه تانيه يبقا انتي فعلا دنيتي واسف لو فضفضت وطولت عليكي ...</p>
+            <p style="text-align: center; color: var(--dark-red); font-weight: bold;">اللهم إني استودعتك ايناس سيد فاحفظها بحفظك الذي لا يرام وعينك التي لا تنام امين يارب العلمين..</p>
+            <div style="text-align: center; border-top: 2px dashed #ccc; margin-top: 20px; padding-top: 15px; font-size: 1.5rem;">
+                بحبكككك وبعشقك يا دنيتي ❤️🌏💍<br>مهند ✍️
+            </div>
         </div>
     </div>
 
     <script>
         let flippedCount = 0;
         function startApp() { document.getElementById('bgMusic').play().catch(e => {}); nextStep('stepLogin'); }
-        function nextStep(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+        function nextStep(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
         
         function checkPassword() {
             if(document.getElementById('passInput').value === "روح نودى") nextStep('stepGame');
@@ -92,9 +98,9 @@
         setInterval(() => {
             const p = document.createElement('div'); p.className = 'particle'; p.innerHTML = '❤️';
             p.style.left = Math.random() * 100 + 'vw'; p.style.top = '-5vh';
-            p.style.fontSize = '20px'; p.style.animationDuration = '3s';
-            document.body.appendChild(p); setTimeout(() => p.remove(), 3000);
-        }, 500);
+            p.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(p); setTimeout(() => p.remove(), 4000);
+        }, 400);
     </script>
 </body>
 </html>
