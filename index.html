@@ -3,172 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أغلى ما أملك 💖</title>
-    <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;700&family=Amiri:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <title>إلى دنيتي إيناس 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #d4af37;
-            --deep-red: #800020;
-            --soft-pink: #ffb3c1;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
+        :root { --gold: #d4af37; --red: #800020; --pink: #ffb3c1; }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Reem Kufi', sans-serif; overflow-x: hidden; }
+        .screen { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+        .active { display: flex; }
 
-        body, html {
-            margin: 0; padding: 0; height: 100%;
-            background: radial-gradient(circle at center, #2b0008 0%, #000 100%);
-            font-family: 'Reem Kufi', sans-serif;
-            overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
-        }
+        /* الظرف الملكي */
+        .envelope { width: 280px; height: 180px; background: var(--red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: 0.5s; }
+        .envelope::before { content: ''; position: absolute; top: 0; border-top: 100px solid #a50029; border-left: 140px solid transparent; border-right: 140px solid transparent; transform-origin: top; transition: 0.5s; }
+        .seal { position: absolute; top: 70px; left: 115px; width: 50px; height: 50px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 0 15px var(--gold); }
 
-        /* الطبقة الأولى: الظرف الملكي */
-        .envelope-wrapper {
-            position: relative; cursor: pointer;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100;
-        }
+        /* الأسئلة والمدخلات */
+        input, button { padding: 12px 25px; border-radius: 25px; border: none; font-family: 'Reem Kufi'; font-size: 1.1rem; margin: 10px; }
+        button { background: var(--red); color: white; cursor: pointer; transition: 0.3s; border: 1px solid var(--gold); }
+        .btn-choice { background: #1a1a1a; width: 200px; }
+        .moving-btn { position: absolute; }
 
-        .envelope {
-            position: relative; width: 300px; height: 200px;
-            background: var(--deep-red);
-            border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
+        /* السلايدر */
+        .slider-container { width: 80%; max-width: 400px; }
+        input[type=range] { width: 100%; cursor: pointer; accent-color: var(--red); }
 
-        .envelope::before {
-            content: ''; position: absolute; top: 0; z-index: 2;
-            border-top: 110px solid #a50029; border-left: 150px solid transparent; border-right: 150px solid transparent;
-            transform-origin: top; transition: all 0.5s 0.3s;
-        }
+        /* الرسالة النهائية */
+        .final-letter { background: #fffcf2; color: #333; padding: 40px; border-radius: 5px; max-width: 600px; max-height: 80vh; overflow-y: auto; line-height: 2; font-family: 'Amiri', serif; border: 15px solid #fff; box-shadow: inset 0 0 50px rgba(0,0,0,0.1); position: relative; }
+        .signature { font-family: 'Amiri'; color: var(--red); font-size: 2rem; margin-top: 20px; text-decoration: underline; cursor: pointer; }
 
-        .seal {
-            position: absolute; top: 90px; left: 130px; width: 40px; height: 40px;
-            background: var(--gold); border-radius: 50%; z-index: 3;
-            box-shadow: 0 0 10px var(--gold);
-            display: flex; justify-content: center; align-items: center; font-size: 20px;
-        }
-
-        /* عند فتح الظرف */
-        .envelope-wrapper.open { transform: translateY(150px); opacity: 0; pointer-events: none; }
-        .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 0; }
-
-        /* الطبقة الثانية: المحتوى الفخم */
-        .main-content {
-            position: absolute; width: 100%; height: 100%;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 1.5s;
-        }
-
-        .glass-card {
-            background: var(--glass); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 3rem; border-radius: 30px; text-align: center;
-            max-width: 500px; width: 90%; color: #fff;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
-
-        h1 { font-family: 'Amiri', serif; font-size: 2.5rem; color: var(--soft-pink); margin-bottom: 0.5rem; }
-        .typing-box { font-size: 1.3rem; line-height: 1.8; min-height: 100px; margin: 20px 0; }
-
-        /* القلب النابض الخلفي */
-        #pinkboard { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-        .floating-names {
-            position: absolute; color: var(--gold); font-weight: bold;
-            pointer-events: none; animation: floatUp 4s forwards;
-        }
-
-        @keyframes floatUp {
-            to { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade { animation: fadeIn 1.5s ease; }
     </style>
 </head>
 <body>
 
-    <div class="envelope-wrapper" onclick="openSurprise()">
-        <div class="envelope">
-            <div class="seal">❤</div>
+    <div id="step1" class="screen active fade">
+        <h2 style="color: var(--gold);">افتحي الرسالة بس براحة على قلبي 🥺</h2>
+        <div class="envelope" onclick="showLogin()">
+            <div class="seal">❤️</div>
         </div>
-        <p style="color: var(--gold); text-align: center; margin-top: 20px;">إلى إيناس.. اضغطي للفتح</p>
     </div>
 
-    <div class="main-content" id="mainContent">
-        <canvas id="pinkboard"></canvas>
-        <div class="glass-card">
-            <h1 id="title">يا روحي..</h1>
-            <div class="typing-box" id="typingBox"></div>
-            <p style="font-style: italic; color: var(--soft-pink);">أحبكِ اليوم، غداً، وإلى الأبد.</p>
+    <div id="stepLogin" class="screen fade">
+        <h3>ادخلي كلمة السر يا دنيتي</h3>
+        <input type="password" id="passInput" placeholder="كلمة السر...">
+        <button onclick="checkPass()">دخول ✨</button>
+        <p id="loginMsg" style="color: var(--pink);"></p>
+    </div>
+
+    <div id="stepQ1" class="screen fade">
+        <h2>انتي ليه جميلة اوي كدة؟ 😍</h2>
+        <button class="btn-choice" onclick="nextStep(4)">عشان اتولدت لمهند ❤️</button>
+        <button class="btn-choice" onclick="nextStep(4)">عشان اتولدت لنودي 🌎</button>
+    </div>
+
+    <div id="stepQ2" class="screen fade">
+        <h2>إيه أكتر حاجة بطمنك؟ 🥺</h2>
+        <textarea id="comfort" style="width: 80%; height: 100px; border-radius: 15px; padding: 10px;"></textarea>
+        <button onclick="nextStep(5)">كملي يا روحي..</button>
+    </div>
+
+    <div id="stepQ3" class="screen fade">
+        <h2>شايفة مهند بيحبك بنسبة كام؟ 💍</h2>
+        <div class="slider-container">
+            <input type="range" id="loveSlider" min="0" max="2000" value="0" oninput="updateLoveVal(this.value)">
+            <h1 id="loveVal">0%</h1>
+        </div>
+        <button id="nextBtnLove" style="display:none" onclick="nextStep(6)">أيوة كدة! كملي ❤️</button>
+    </div>
+
+    <div id="stepQ4" class="screen fade">
+        <h2>أمنية ونفسك مهند يحققهالك؟ ✨</h2>
+        <button id="run1" class="btn-choice" onmouseover="moveBtn(this)">نتخطب 💍</button>
+        <button id="run2" class="btn-choice" onmouseover="moveBtn(this)">نتجوز 🏠</button>
+        <button class="btn-choice" onclick="nextStep(7)">نتجوز على طول 💍❤️</button>
+    </div>
+
+    <div id="step7" class="screen fade">
+        <h1 style="font-size: 4rem;">طب متيجي! 😉💍</h1>
+        <button onclick="nextStep(8)">اضغطي هنا بقا عشان تشوفي الإمضاء..</button>
+    </div>
+
+    <div id="step8" class="screen fade">
+        <div id="sealedLetter" class="envelope" style="background: var(--gold);" onclick="openFinalLetter()">
+            <div class="seal" style="background: var(--red); font-size: 12px;">إمضاء مهند</div>
+        </div>
+        <div id="finalMessage" style="display:none" class="final-letter fade">
+            <p>بصي بقى.. أنا عايز أقول كل اللي جوايا بجد.. مش عارف لو الكلام هيبقا قليل أو قصير حقيقي عشان أنا معرفش قلبي قسماً بالله اللي هيجاوب 🫰🏼 </p>
+            <p>بسم الله.. أنا أعرفك آه بقالي ٩ سنين بس كان فيهم حلو ووحش وعرفتيني وبُعدنا حبة واتكلمنا تاني.. بس قسماً بالله أنا لو قعدت ٩٠ سنة معاكي مهشبع منك تمام 🙏🏼🌎</p>
+            <p>أنا عارف زمان كنت آه بكذب في حاجات كتير وانتي استحملتيني يا أصيلة يا ست البنات.. بس قسماً بالله اللي رفع السما بلا عمد أنا حبيتك من زمان وحبي زاد واهتميت أكتر دلوقتي، لكن فكرة الحب حالياً بقت عشق اللي هو عايزك يعني عايزك وطبعاً في حلال ❤️🌏💍</p>
+            <p>عايزك عشان انتي مفيش زيك تاني كطيبة وحنية وروحك صافية وقلبك أبيض.. ساعات أقول انتي مش بشر قسماً بالله مش أوفر بس والله ساعات أقول دي بتغلط زينا عادي! 🙂❤️🌏</p>
+            <p>عقلي يقول للدرجادي يا مجنون وحضرتك من ناحية تانية تقوليلي أنا عادية.. بس وحياة ربنا وغلاوتك انتي وأمي وأختي عندي أنا حرفياً شايفك ملاك 🫂</p>
+            <p>وبالنسبة إنك بتقولي أنت هتعمل كل اللي قلته وحنية وطيبة دي في جواز.. قسماً بالله أنا هعمل أكتر من كدة لحد ما تدوخي من الدلع اللي هدلعهولك والأيام تثبت وربنا شاهد على ما أقول 🙏🏼❤️❤️</p>
+            <p>أنا والله ماليش غيرك في دنيتي دلوقتي غيرك انتي حبيبتي وصاحبتي وأمي وبنتي وروحي وعقلي ونبضي والهوا اللي بتنفسه 🥺🌏</p>
+            <p>سألت نفسي ساعات لما بتقفلي مفيش ثانية عدت وأقول لا اتصل أنا مشبعتش من صوتك وضحكتك اللي تخلي القلب يسيح في مكانه 🤤🥹</p>
+            <p>انتي كاملة الأوصاف من جوه ملايكة ومن بره قمرين.. أمي دعيالي فعلاً وربنا بعتلي أغلى هدية ليا 😭❤️🌏 يبقى غبي لو محافظتش عليكي، ربنا يخليكي ويحميكي ليا يا ست البنات ويحلالي بإذن الله 🥺❤️</p>
+            <p>امبارح بعد ما استخرت ربنا فيكي، سألت نفسي أنا عايز إيه من الدنيا لو ربنا جمعني بيكي ملقتش حاجة تانية.. يبقى انتي فعلاً دنيتي وأسف لو فضفضت وطولت عليكي...</p>
+            <p>اللهم إني استودعتك إيناس سيد فاحفظها بحفظك الذي لا يرام وعينك التي لا تنام آمين يارب العالمين..</p>
+            <p>بحبكككك وبعشقك يا دنيتي ❤️🌏💍🥺</p>
+            <div class="signature">المخلص لكِ للأبد: مهند ✍️</div>
         </div>
     </div>
 
     <script>
-        const names = ["قطتي 🐾", "أمي الثانية 👑", "حبيبتي 💖", "روحي ✨", "إيناس 🌹"];
-        const message = "أنتِ لستِ مجرد شخص في حياتي، أنتِ الحياة نفسها.. يا قطتي الشقية التي تملأ عالمي بالبهجة، ويا أمي التي تحتويني بحنانها، ويا حبيبتي التي سكنت قلبي للأبد. كل نبضة في هذا القلب تنطق باسمكِ يا إيناس.";
+        let failCount = 0;
+        function showLogin() { nextStep('Login'); }
 
-        function openSurprise() {
-            document.querySelector('.envelope-wrapper').classList.add('open');
-            setTimeout(() => {
-                document.getElementById('mainContent').style.display = 'flex';
-                setTimeout(() => {
-                    document.getElementById('mainContent').style.opacity = '1';
-                    startTyping();
-                    startHeart(); // تشغيل الكود الرياضي للقلب
-                }, 100);
-            }, 800);
-        }
-
-        function startTyping() {
-            let i = 0;
-            const box = document.getElementById('typingBox');
-            const interval = setInterval(() => {
-                box.innerHTML += message.charAt(i);
-                i++;
-                if (i % 10 === 0) createFloatingName(); // كل فترة يطير اسم دلع
-                if (i >= message.length) clearInterval(interval);
-            }, 70);
-        }
-
-        function createFloatingName() {
-            const el = document.createElement('div');
-            el.className = 'floating-names';
-            el.innerHTML = names[Math.floor(Math.random() * names.length)];
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.top = '100vh';
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 4000);
-        }
-
-        // --- كود القلب الرياضي (المطور) ---
-        function startHeart() {
-            var canvas = document.getElementById('pinkboard');
-            var context = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            function pointOnHeart(t) {
-                return {
-                    x: 160 * Math.pow(Math.sin(t), 3),
-                    y: 130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
-                };
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            const msg = document.getElementById('loginMsg');
+            if(pass === "123") { nextStep(1); } // كلمة السر هنا 123
+            else {
+                failCount++;
+                if(failCount === 1) msg.innerText = "روحي حاولي تاني 🙄";
+                else msg.innerText = "يا عم براحة عليا.. حاولي تاني يا عيوني 🥺";
             }
+        }
 
-            function render() {
-                requestAnimationFrame(render);
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                context.translate(canvas.width / 2, canvas.height / 2);
-                
-                context.beginPath();
-                for (let t = -Math.PI; t < Math.PI; t += 0.01) {
-                    let p = pointOnHeart(t);
-                    context.lineTo(p.x, -p.y);
-                }
-                context.shadowBlur = 20;
-                context.shadowColor = '#ff4d6d';
-                context.fillStyle = 'rgba(255, 77, 109, 0.3)';
-                context.fill();
-                context.setTransform(1, 0, 0, 1, 0, 0);
-            }
-            render();
+        function nextStep(n) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            if(n === 1) document.getElementById('stepQ1').classList.add('active');
+            else document.getElementById('step' + n).classList.add('active');
+        }
+
+        function updateLoveVal(v) {
+            document.getElementById('loveVal').innerText = v + "%";
+            if(v >= 2000) document.getElementById('nextBtnLove').style.display = "block";
+        }
+
+        function moveBtn(btn) {
+            btn.style.left = Math.random() * 80 + 'vw';
+            btn.style.top = Math.random() * 80 + 'vh';
+            btn.style.position = 'absolute';
+        }
+
+        function openFinalLetter() {
+            document.getElementById('sealedLetter').style.display = 'none';
+            document.getElementById('finalMessage').style.display = 'block';
         }
     </script>
 </body>
