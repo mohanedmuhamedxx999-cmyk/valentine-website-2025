@@ -11,24 +11,27 @@
         .background-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #2c003e 0%, #000000 100%); z-index: -1; }
         .screen { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
         .active { display: flex !important; }
-        .game-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px; }
-        .card { width: 140px; height: 100px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 5px; transition: 0.5s; }
-        .card.flipped { background: #fff; color: var(--dark-red); transform: rotateY(360deg); font-weight: bold; }
-        .envelope { width: 220px; height: 140px; background: var(--dark-red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 20px auto; }
+        .envelope { width: 220px; height: 140px; background: var(--dark-red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 20px auto; transition: 0.3s; }
         .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-top: 80px solid #a50029; border-left: 110px solid transparent; border-right: 110px solid transparent; }
+        .game-container { display: grid; grid-template-columns: repeat(2, 110px); gap: 15px; margin: 20px; }
+        .card { width: 110px; height: 80px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 5px; font-size: 0.8rem; transition: 0.5s; overflow: hidden; }
+        .card.flipped { background: #fff; color: var(--dark-red); transform: rotateY(360deg); font-weight: bold; }
         button, input { padding: 15px 30px; margin: 10px; border-radius: 30px; border: 2px solid var(--gold); background: rgba(255,255,255,0.1); color: #fff; font-family: 'Reem Kufi'; cursor: pointer; }
-        .final-letter { background: rgba(255, 255, 255, 0.95); color: #333; padding: 30px; border-radius: 20px; max-width: 600px; width: 90%; max-height: 75vh; overflow-y: auto; font-family: 'Amiri', serif; line-height: 2; border: 4px solid var(--gold); text-align: right; }
+        .final-letter { background: rgba(255, 255, 255, 0.95); color: #333; padding: 25px; border-radius: 20px; max-width: 600px; width: 90%; max-height: 75vh; overflow-y: auto; font-family: 'Amiri', serif; line-height: 1.8; border: 4px solid var(--gold); text-align: right; }
         .particle { position: fixed; pointer-events: none; z-index: 1000; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh); opacity: 0; } }
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
+    <audio id="bgMusic" loop preload="auto"><source src="music.mp3" type="audio/mpeg"></audio>
     <div class="background-overlay"></div>
 
     <div id="step1" class="screen active">
         <h1 style="color: var(--pink);">يا روح نودي.. 🌎</h1>
-        <div class="envelope" onclick="startApp()"><div style="position:absolute; top:50px; left:95px; font-size:30px;">❤️</div></div>
+        <div class="envelope" onclick="startApp()">
+            <div style="position:absolute; top:50px; left:95px; font-size:30px;">❤️</div>
+        </div>
+        <p>اضغطي على القلب عشان تفتحي الرسالة</p>
     </div>
 
     <div id="stepLogin" class="screen">
@@ -46,7 +49,7 @@
             <div class="card" onclick="flip(this, 'ضحكتك اللي بتدوب قلبي')">❤️</div>
             <div class="card" onclick="flip(this, 'أصلك الطيب يا ست البنات')">❤️</div>
         </div>
-        <button id="giftBtn" style="display:none; margin-top:30px;" onclick="nextStep('stepFinal')">افتحي هديتك الكبيرة 🎁</button>
+        <button id="giftBtn" style="display:none; margin-top:20px;" onclick="nextStep('stepFinal')">افتحي هديتك الكبيرة 🎁</button>
     </div>
 
     <div id="stepFinal" class="screen">
@@ -65,11 +68,43 @@
 
     <script>
         let flippedCount = 0;
-        function startApp() { document.getElementById('bgMusic').play().catch(e => {}); nextStep('stepLogin'); }
-        function nextStep(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-        function checkPassword() { if(document.getElementById('passInput').value === "روح نودى") nextStep('stepGame'); else document.getElementById('errorMsg').innerText = "حاولي تاني يا عيوني 🥺"; }
-        function flip(card, text) { if(!card.classList.contains('flipped')) { card.classList.add('flipped'); card.innerText = text; flippedCount++; if(flippedCount === 4) document.getElementById('giftBtn').style.display = 'block'; } }
-        setInterval(() => { const p = document.createElement('div'); p.className = 'particle'; p.innerHTML = '❤️'; p.style.left = Math.random() * 100 + 'vw'; p.style.top = '-5vh'; p.style.fontSize = '20px'; document.body.appendChild(p); setTimeout(() => p.remove(), 4000); }, 500);
+        function startApp() {
+            // محاولة تشغيل الصوت مع الانتقال فوراً
+            var audio = document.getElementById('bgMusic');
+            audio.play().catch(function(e) { console.log("الصوت محتاج تفاعل أكتر"); });
+            nextStep('stepLogin');
+        }
+
+        function nextStep(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            var target = document.getElementById(id);
+            if(target) target.classList.add('active');
+        }
+
+        function checkPassword() {
+            var val = document.getElementById('passInput').value;
+            if(val === "روح نودى") {
+                nextStep('stepGame');
+            } else {
+                document.getElementById('errorMsg').innerText = "حاولي تاني يا عيوني 🥺";
+            }
+        }
+
+        function flip(card, text) {
+            if(!card.classList.contains('flipped')) {
+                card.classList.add('flipped');
+                card.innerText = text;
+                flippedCount++;
+                if(flippedCount === 4) document.getElementById('giftBtn').style.display = 'block';
+            }
+        }
+
+        setInterval(() => {
+            const p = document.createElement('div'); p.className = 'particle'; p.innerHTML = '❤️';
+            p.style.left = Math.random() * 100 + 'vw'; p.style.top = '-5vh';
+            p.style.fontSize = '20px'; p.style.animationDuration = '4s';
+            document.body.appendChild(p); setTimeout(() => p.remove(), 4000);
+        }, 600);
     </script>
 </body>
 </html>
