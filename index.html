@@ -8,18 +8,40 @@
     <style>
         :root { --gold: #d4af37; --red: #ff4d6d; --dark-red: #800020; }
         body, html { margin: 0; padding: 0; min-height: 100vh; font-family: 'Reem Kufi', sans-serif; background: #0b0111; color: #fff; overflow-x: hidden; }
-        .background-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #2c003e 0%, #000000 100%); z-index: -1; }
+        
+        /* خلفية رومانسية متحركة */
+        .background-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(45deg, #1a001a, #4d0000, #1a001a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -2; 
+        }
+        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+
+        /* تأثير الورد المتساقط */
+        .rose-petal { position: fixed; pointer-events: none; z-index: 1000; animation: fall 5s linear forwards; font-size: 25px; }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
         .screen { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
-        .active { display: flex !important; }
-        .envelope { width: 200px; height: 130px; background: var(--dark-red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 20px auto; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-top: 70px solid #a50029; border-left: 100px solid transparent; border-right: 100px solid transparent; }
-        .game-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 20px; }
-        .card { width: 130px; height: 90px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; padding: 5px; }
+        .active { display: flex !important; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .envelope { width: 220px; height: 140px; background: var(--dark-red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 20px auto; box-shadow: 0 0 30px var(--red); transition: 0.3s; }
+        .envelope:hover { transform: scale(1.1); }
+        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-top: 80px solid #a50029; border-left: 110px solid transparent; border-right: 110px solid transparent; }
+
+        .game-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px; }
+        .card { width: 130px; height: 90px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.5s; font-size: 0.85rem; padding: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .card.flipped { background: #fff; color: var(--dark-red); transform: rotateY(360deg); font-weight: bold; }
-        button, input { padding: 12px 25px; margin: 10px; border-radius: 25px; border: 2px solid var(--gold); background: rgba(255,255,255,0.1); color: #fff; font-family: 'Reem Kufi'; cursor: pointer; }
-        .final-letter { background: rgba(255, 255, 255, 0.95); color: #333; padding: 25px; border-radius: 20px; max-width: 550px; width: 90%; max-height: 70vh; overflow-y: auto; font-family: 'Amiri', serif; line-height: 1.8; border: 4px solid var(--gold); text-align: right; }
-        .particle { position: fixed; pointer-events: none; z-index: 1000; animation: fall 4s linear forwards; }
-        @keyframes fall { to { transform: translateY(110vh); opacity: 0; } }
+
+        button, input { padding: 15px 30px; margin: 10px; border-radius: 30px; border: 2px solid var(--gold); background: rgba(255,255,255,0.15); color: #fff; font-family: 'Reem Kufi'; cursor: pointer; backdrop-filter: blur(5px); }
+        button:hover { background: var(--red); box-shadow: 0 0 20px var(--gold); }
+
+        .final-letter { background: rgba(255, 255, 255, 0.95); color: #333; padding: 30px; border-radius: 25px; max-width: 600px; width: 90%; max-height: 75vh; overflow-y: auto; font-family: 'Amiri', serif; line-height: 2; border: 5px solid var(--gold); text-align: right; box-shadow: 0 0 50px rgba(255, 77, 109, 0.5); }
     </style>
 </head>
 <body>
@@ -27,27 +49,27 @@
     <div class="background-overlay"></div>
 
     <div id="step1" class="screen active">
-        <h1 style="color: var(--pink);">يا روح نودي.. 🌎</h1>
-        <div class="envelope" onclick="startApp()"><div style="position:absolute; top:45px; left:85px; font-size:30px;">❤️</div></div>
-        <p>اضغطي على القلب عشان نبدأ</p>
+        <h1 style="color: var(--pink); text-shadow: 0 0 20px var(--red); font-size: 2.5rem;">يا روح نودي.. 🌎</h1>
+        <div class="envelope" onclick="startApp()"><div style="position:absolute; top:50px; left:95px; font-size:30px;">❤️</div></div>
+        <p style="font-size: 1.2rem;">اضغطي على القلب عشان نفتح دنيتنا ✨</p>
     </div>
 
     <div id="stepLogin" class="screen">
-        <h3>كلمة السر الخاصة بينا ✨</h3>
-        <input type="password" id="passInput" placeholder="...">
-        <button onclick="checkPassword()">دخول 💖</button>
-        <p id="errorMsg" style="color: #ff4d6d;"></p>
+        <h3 style="color: var(--gold);">كلمة السر الخاصة بينا ✨</h3>
+        <input type="password" id="passInput" placeholder="اكتبي الكلمة اللي بنحبها...">
+        <button onclick="checkPassword()">دخول للقلب 💖</button>
+        <p id="errorMsg" style="color: var(--red); font-weight: bold;"></p>
     </div>
 
     <div id="stepGame" class="screen">
-        <h2 style="color: var(--gold);">تفتكري مهند بيحب فيكي إيه؟ ✨</h2>
+        <h2 style="color: var(--gold);">لعبة القلوب: تفتكري مهند بيحب فيكي إيه؟ ✨</h2>
         <div class="game-container">
-            <div class="card" onclick="flip(this, 'حنيتك اللي مفيش زيها')">❤️</div>
-            <div class="card" onclick="flip(this, 'روحك الصافية الملايكة')">❤️</div>
-            <div class="card" onclick="flip(this, 'ضحكتك اللي بتدوب قلبي')">❤️</div>
-            <div class="card" onclick="flip(this, 'أصلك الطيب يا ست البنات')">❤️</div>
+            <div class="card" onclick="flip(this, 'حنيتك اللي مفيش زيها')">🌹</div>
+            <div class="card" onclick="flip(this, 'روحك الصافية الملايكة')">🌹</div>
+            <div class="card" onclick="flip(this, 'ضحكتك اللي بتدوب قلبي')">🌹</div>
+            <div class="card" onclick="flip(this, 'أصلك الطيب يا ست البنات')">🌹</div>
         </div>
-        <button id="giftBtn" style="display:none;" onclick="nextStep('stepFinal')">افتحي هديتك 🎁</button>
+        <button id="giftBtn" style="display:none; margin-top:20px; background: var(--dark-red); color: gold;" onclick="nextStep('stepFinal')">افتحي هديتك الكبيرة 🎁</button>
     </div>
 
     <div id="stepFinal" class="screen">
@@ -56,40 +78,32 @@
             <p>انا عارف زمان كنت اه بكذب في حجات كتير وانتي استحملتيني يا اصيله يا ست البنات بس قسما بالله الي رفع السما بلا عمد انا حبيتك من زمان وحبي زاد واهتميت اكتر دلوقتي لكن فكرة الحب حاليا بقت عشق الي هو عايزك يعني عايزك وطبعا في حلال ❤️🌏💍.</p>
             <p>عايز عشان انتي مفيش زيك تاني كطييه و حنينه و روحك صافيه وقلبك ابيض ساعات اقول انتي مش بشر قسما بالله مش اوفر بس والله ساعات اقول دي بتغلط زينا عادي!🙂❤️🌏 عقلي يقول للدرجادي يامجنون وحضرتك من نحيه التانيه تقوليلي انا عادية بس وحيات ربنا وغلاوتك انتي وامي واختي عندي انا حرفيا شايفك ملاك 🫂.</p>
             <p>وبنسبه انتي بتقولي انت هتعمل كل قولته وحنيه وطيبه دي في جواز قسما بالله انا هعمل اكتر من كدا لحد متدوخي من الدلع الي هدلعهولك والايام تثبت وربنا شاهد علي ما اقول 🙏🏼❤️❤️.</p>
-            <p>انا والله ماليش غيرك في دنيتي دلوقتي غيرك انتي حببتي و صحبتي و امي وبنتي و روحي وعقلي و نبضي و الهوا الي بتنفسه🥺🌏. سألت نفسي ساعات لما بتقفلي مفيش ثانيه عدت واقول لا اتصل انا مشبعتش من صوتك وضحتك الي تخلي القلب يسيح في مكانه 🤤🥹.</p>
+            <p>انا والله ماليش غيرك في دنيتي دلوقتي غيرك انتي حببتي و صحبتي و امي وبنتي و روحي وعقلي و نبضي و الهوا الي بتنفسه🥺🌏. سالت نفسي ساعات لما بتقفلي مفيش ثانيه عدت واقول لا اتصل انا مشبعتش من صوتك وضحتك الي تخلي القلب يسيح في مكانه 🤤🥹.</p>
             <p>انتي كاملة الاوصاف من جوه ملايكه ومن بره قمرين امي دعيالي فعلا وربنا بعتالي ااغله هديه ليا 😭❤️🌏. يبقا غبي لو محافظتش عليكي ، ربنا يخليكي ويحميكي ليا يا ست البنات و يحلالي باذن الله 🥺❤️.</p>
             <p>امبارح بعد مستخرت ربنا فيكي ، سالت تفسي انا عايز ايه من الدنيا لو ربنا جمعني بيكي ملقتش حاجه تانيه يبقا انتي فعلا دنيتي واسف لو فضفضت وطولت عليكي ...</p>
-            <p style="text-align: center; color: var(--dark-red); font-weight: bold;">اللهم إني استودعتك ايناس سيد فاحفظها بحفظك الذي لا يرام وعينك التي لا تنام امين يارب العلمين..</p>
-            <div style="text-align: center; font-size: 1.5rem; margin-top: 15px;">بحبكككك وبعشقك يا دنيتي ❤️🌏💍<br>مهند ✍️</div>
+            <p style="text-align: center; color: var(--dark-red); font-weight: bold; font-size: 1.2rem;">اللهم إني استودعتك ايناس سيد فاحفظها بحفظك الذي لا يرام وعينك التي لا تنام امين يارب العلمين..</p>
+            <div style="text-align: center; border-top: 2px dashed #ccc; margin-top: 20px; padding-top: 15px; font-size: 1.6rem;">بحبكككك وبعشقك يا دنيتي ❤️🌏💍<br>مهند ✍️</div>
         </div>
     </div>
 
     <script>
         let flippedCount = 0;
-        function nextStep(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-        function startApp() {
-            var audio = document.getElementById('bgMusic');
-            if(audio) audio.play().catch(e => console.log('Audio error'));
-            nextStep('stepLogin');
-        }
-        function checkPassword() {
-            if(document.getElementById('passInput').value === "روح نودى") nextStep('stepGame');
-            else document.getElementById('errorMsg').innerText = "خطأ يا عيوني 🥺";
-        }
-        function flip(c, t) {
-            if(!c.classList.contains('flipped')) {
-                c.classList.add('flipped'); c.innerText = t; flippedCount++;
-                if(flippedCount === 4) document.getElementById('giftBtn').style.display = 'block';
-            }
-        }
+        function startApp() { document.getElementById('bgMusic').play().catch(e => {}); nextStep('stepLogin'); }
+        function nextStep(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+        function checkPassword() { if(document.getElementById('passInput').value === "روح نودى") nextStep('stepGame'); else document.getElementById('errorMsg').innerText = "حاولي تاني يا عيوني 🥺"; }
+        function flip(c, t) { if(!c.classList.contains('flipped')) { c.classList.add('flipped'); c.innerText = t; flippedCount++; if(flippedCount === 4) document.getElementById('giftBtn').style.display = 'block'; } }
+        
+        // تأثير تساقط الورد والقلوب
         setInterval(() => {
-            const p = document.createElement('div'); p.className = 'particle'; p.innerHTML = '❤️';
-            p.style.left = Math.random() * 100 + 'vw'; p.style.top = '-5vh';
-            document.body.appendChild(p); setTimeout(() => p.remove(), 4000);
-        }, 600);
+            const p = document.createElement('div');
+            p.className = 'rose-petal';
+            p.innerHTML = ['🌹', '❤️', '🌸', '💖'][Math.floor(Math.random() * 4)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = '-5vh';
+            p.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 5000);
+        }, 300);
     </script>
 </body>
 </html>
