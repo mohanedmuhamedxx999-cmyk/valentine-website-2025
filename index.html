@@ -8,40 +8,21 @@
     <style>
         :root { --gold: #d4af37; --red: #ff4d6d; --dark-red: #800020; --night: #05010a; }
         body, html { margin: 0; padding: 0; min-height: 100vh; font-family: 'Reem Kufi', sans-serif; background: var(--night); color: #fff; overflow-x: hidden; }
-        
-        .background-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: radial-gradient(circle at 20% 20%, #ffffff11 0%, transparent 40%),
-                        linear-gradient(45deg, #05010a, #1a001a, #05010a);
-            z-index: -2; 
-        }
-        .moon {
-            position: fixed; top: 10%; left: 10%; width: 100px; height: 100px;
-            background: #fdfae5; border-radius: 50%;
-            box-shadow: 0 0 50px #fdfae588, inset -10px -10px 20px #0002; z-index: -1;
-        }
-        .star {
-            position: fixed; background: white; border-radius: 50%; opacity: 0.5;
-            animation: twinkle var(--d) infinite; z-index: -1;
-        }
+        .background-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 20%, #ffffff11 0%, transparent 40%), linear-gradient(45deg, #05010a, #1a001a, #05010a); z-index: -2; }
+        .moon { position: fixed; top: 10%; left: 10%; width: 100px; height: 100px; background: #fdfae5; border-radius: 50%; box-shadow: 0 0 50px #fdfae588, inset -10px -10px 20px #0002; z-index: -1; }
+        .star { position: fixed; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle var(--d) infinite; z-index: -1; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
         .rose-petal { position: fixed; pointer-events: none; z-index: 1000; animation: fall 5s linear forwards; font-size: 25px; }
         @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
-        
         .screen { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
         .active { display: flex !important; animation: fadeIn 1s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
         .envelope { width: 220px; height: 140px; background: var(--dark-red); position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 20px auto; box-shadow: 0 0 30px var(--red); transition: 0.3s; }
         .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-top: 80px solid #a50029; border-left: 110px solid transparent; border-right: 110px solid transparent; }
-        
         button, input { padding: 15px 30px; margin: 10px; border-radius: 30px; border: 2px solid var(--gold); background: rgba(255,255,255,0.15); color: #fff; font-family: 'Reem Kufi'; cursor: pointer; transition: 0.3s; backdrop-filter: blur(5px); position: relative; }
-        
         .game-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px; }
         .card { width: 130px; height: 90px; background: var(--dark-red); border: 2px solid var(--gold); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; padding: 5px; }
         .card.flipped { background: #fff; color: var(--dark-red); transform: rotateY(360deg); font-weight: bold; }
-        
         .final-letter { background: rgba(255, 255, 255, 0.95); color: #333; padding: 30px; border-radius: 25px; max-width: 600px; width: 90%; max-height: 75vh; overflow-y: auto; font-family: 'Amiri', serif; line-height: 2; border: 5px solid var(--gold); text-align: right; box-shadow: 0 0 50px rgba(255, 77, 109, 0.5); }
         .moving-btn { position: absolute; }
     </style>
@@ -82,7 +63,13 @@
         <button onclick="alert('بقى كدة؟ ماشي يا نودي الحساب يجمع 😂'); nextStep('stepFun3')">آكل البيتزا وأتفرج عليك 🍕😋</button>
     </div>
 
-    <div id="stepFun3" class="screen">
+    <div id="stepSock" class="screen">
+        <h2>هتجبيلي شراب لما أشوفك؟ 🧦😂</h2>
+        <button onclick="alert('بعشاااق يا قطتي هالكك هقهقهق 😘😘'); nextStep('stepFun3_2')">أيوة طبعاً يا حبيبي ❤️</button>
+        <button onclick="nextStep('stepFun3_2')">أكيد يا روحي من عيوني ✨</button>
+    </div>
+
+    <div id="stepFun3_2" class="screen">
         <h2>مستعدة تكملي الـ 90 سنة اللي جاية نكد ودلع معايا؟ 💍</h2>
         <button onclick="nextStep('stepGame')">موافقة طبعاً يا دنيتي ✨</button>
         <button onclick="nextStep('stepGame')">أيوة بس قلل النكد شوية 😂❤️</button>
@@ -122,16 +109,12 @@
             s.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
             document.body.appendChild(s);
         }
-
         function startApp() { document.getElementById('bgMusic').play().catch(e => {}); nextStep('stepNewQ'); }
         function nextStep(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
         function checkPassword() { if(document.getElementById('passInput').value === "روح نودى") nextStep('stepFun1'); else document.getElementById('errorMsg').innerText = "خطأ يا عيوني 🥺"; }
-        
         function moveNo() { const btn = document.getElementById('noBtn'); btn.style.left = Math.random() * 70 + 'vw'; btn.style.top = Math.random() * 70 + 'vh'; }
         function moveRunBtn() { const btn = document.getElementById('runBtn'); btn.style.left = Math.random() * 70 + 'vw'; btn.style.top = Math.random() * 70 + 'vh'; }
-        
         function flip(c, t) { if(!c.classList.contains('flipped')) { c.classList.add('flipped'); c.innerText = t; flippedCount++; if(flippedCount === 4) document.getElementById('giftBtn').style.display = 'block'; } }
-        
         setInterval(() => {
             const p = document.createElement('div'); p.className = 'rose-petal';
             p.innerHTML = ['🌹', '❤️', '🌸', '💖', '✨'][Math.floor(Math.random() * 5)];
