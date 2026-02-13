@@ -3,117 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مفاجأة لست البنات</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Reem+Kufi:wght@500&display=swap" rel="stylesheet">
+    <title>مفاجأة ست البنات 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff4d6d; --bg: #fff0f3; }
+        :root {
+            --primary: #ff4d6d;
+            --bg: #fff0f3;
+            --text: #590d22;
+        }
+
         body {
-            background-color: var(--bg);
             font-family: 'Reem Kufi', sans-serif;
-            text-align: center; margin: 0; overflow-x: hidden;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
-        .container { padding: 20px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
         .card {
-            background: white; padding: 30px; border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
-            max-width: 400px; width: 90%; position: relative; z-index: 10;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.15);
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            border: 1px solid #ffccd5;
+            z-index: 10;
         }
-        h1, h2 { color: var(--primary); margin-bottom: 20px; }
-        input {
-            width: 80%; padding: 12px; border: 2px solid #ffb3c1;
-            border-radius: 15px; text-align: center; outline: none; font-size: 1rem;
+
+        #message {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            min-height: 60px; /* لمنع اهتزاز الكارت أثناء الكتابة */
+            color: var(--text);
+            margin: 20px 0;
         }
-        button {
-            background: var(--primary); color: white; border: none;
-            padding: 12px 30px; border-radius: 15px; margin-top: 20px;
-            cursor: pointer; font-size: 1.1rem; transition: 0.3s;
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Reem Kufi', sans-serif;
         }
-        button:hover { transform: scale(1.05); background: #c9184a; }
-        .step { display: none; }
-        .active { display: block; animation: fadeIn 0.8s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .heart { position: fixed; font-size: 20px; color: var(--primary); animation: moveUp 4s linear infinite; opacity: 0; z-index: 1; }
-        @keyframes moveUp { 0% { transform: translateY(100vh); opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
+
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* انيميشن نبض القلب */
+        .heart {
+            color: var(--primary);
+            font-size: 40px;
+            animation: beat 0.8s infinite alternate;
+        }
+        @keyframes beat { to { transform: scale(1.2); } }
+
+        /* القلوب المتطايرة */
+        .floating-heart {
+            position: fixed;
+            bottom: -10%;
+            pointer-events: none;
+            animation: move linear forwards;
+        }
+        @keyframes move {
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div id="step1" class="step active">
-            <div class="card">
-                <h2>أهلاً بيكي يا أميرتي ❤️</h2>
-                <p>ممنوع الدخول لغير "حبيبة مهند" .. اكتبي الباسورد</p>
-                <input type="password" id="passInput" placeholder="الباسورد إيه؟">
-                <button onclick="checkPass()">دخول</button>
-            </div>
-        </div>
-
-        <div id="step2" class="step">
-            <div class="card">
-                <h2>أول سؤال 😉</h2>
-                <p>مين أكتر واحد بيحبك في الدنيا دي كلها؟</p>
-                <input type="text" id="q1" placeholder="اكتبي اسمه هنا..">
-                <button onclick="nextStep(3, 'q1', 'مهند')">التالي</button>
-            </div>
-        </div>
-
-        <div id="step3" class="step">
-            <div class="card">
-                <h2>تاني سؤال 🥰</h2>
-                <p>إحنا اتقابلنا أول مرة في شهر كام؟</p>
-                <input type="text" id="q2" placeholder="اكتبي رقم الشهر..">
-                <button onclick="nextStep(4, 'q2', '2')">متأكدة؟</button>
-            </div>
-        </div>
-
-        <div id="step4" class="step">
-            <div class="card" style="max-width: 600px;">
-                <h1>إلى "ست البنات" ❤️</h1>
-                <div style="text-align: right; line-height: 1.8; color: #444;">
-                    <p>عارف إن الدنيا ساعات بتبقى صعبة، بس عايزك تعرفي إنك أنتي "المكان" اللي بهرب فيه من أي تعب. وجودك في حياتي مش مجرد صدفة، ده رزق كبير من ربنا.</p>
-                    <p>كل كلمة قولتها لك كانت طالعة من قلبي، وكل لحظة قضيتها معاكي محفورة في ذاكرتي. أنتي مش بس حبيبتي، أنتي بنتي وصاحبتي وأهلي كلهم.</p>
-                    <p>أوعدك إني هفضل دايما جنبك، ساندك، ومصدر فرحتك.. مهما حصل.</p>
-                </div>
-                <h2 style="font-family: 'Cairo';">بحبك يا أجمل من رأت عيني ❤️</h2>
-                <p style="font-size: 0.8rem; color: #999;">- مهند</p>
-            </div>
-        </div>
+    <div class="card">
+        <div class="heart">❤️</div>
+        <div id="message"></div>
+        <button class="btn" id="startBtn" onclick="startSurprise()">اضغطي هنا يا ست البنات ✨</button>
     </div>
 
-    <audio id="bgMusic" loop><source src="song.mp3" type="audio/mpeg"></audio>
-
     <script>
-        function checkPass() {
-            if (document.getElementById('passInput').value === "بحبك يا مهند") {
-                showStep(2);
-                document.getElementById('bgMusic').play();
-                startHearts();
-            } else { alert("الباسورد غلط يا قمر!"); }
+        const messageText = "كل سنة وأنتِ منورة حياتي.. أنتِ مش بس ست البنات، أنتِ الدنيا كلها في عيني. ربنا يخليكي ليا يا أغلى ما عندي. ✨❤️";
+        const messageElement = document.getElementById("message");
+        const btn = document.getElementById("startBtn");
+
+        function startSurprise() {
+            btn.disabled = true;
+            btn.style.display = "none";
+            let i = 0;
+            messageElement.innerHTML = "";
+            
+            // تأثير الكتابة
+            const typing = setInterval(() => {
+                messageElement.innerHTML += messageText.charAt(i);
+                i++;
+                if (i > messageText.length) {
+                    clearInterval(typing);
+                    celebrate(); // ابدأ الاحتفال بعد الكتابة
+                }
+            }, 70);
         }
 
-        function nextStep(stepNum, inputId, correctAns) {
-            let val = document.getElementById(inputId).value;
-            if(val.includes(correctAns)) {
-                showStep(stepNum);
-            } else {
-                alert("إجابة غلط.. حاولي تاني يا روحي!");
-            }
+        function celebrate() {
+            setInterval(createHeart, 300);
         }
 
-        function showStep(n) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            document.getElementById('step' + n).classList.add('active');
-        }
-
-        function startHearts() {
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.innerHTML = '❤️'; heart.className = 'heart';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 4000);
-            }, 300);
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = ['❤️', '💖', '🌹', '✨'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            heart.style.duration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
         }
     </script>
 </body>
